@@ -1,13 +1,16 @@
 module Validations
   module Length
     def self.validate(value, validator_object)
-      validator_value.each do |type, validator_value|
+      error_present = false
+      validator_object.each do |type, validator_value|
+        break if error_present
         if type == "min"
-          value.length < validator_value
+          error_present = value.length < validator_value
         elsif type == "max"
-          value.length > validator_value
+          error_present = value.length > validator_value
         end
       end
+      error_present
     end
   end
 end

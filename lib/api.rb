@@ -11,15 +11,15 @@ class Api
     @customers = []
     @response = {}
     @total_number_of_pages = nil
-    @validations = {}
+    @validations = nil
   end
 
   def process
     while page <= total_pages()
-      self.page +=1
       self.response = fetch()
       self.validations ||= self.response['validations']
       self.customers << self.response['customers']
+      self.page +=1
     end
     self.customers.flatten!
     send_response()
